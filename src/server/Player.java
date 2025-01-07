@@ -1,4 +1,4 @@
-//I moved your Player.java to Client <<<<<<<<<<<<<<<<<<<<<<<<<<<<
+import java.io.PrintWriter;
 import java.net.Socket;
 
 public class Player extends Character {
@@ -11,7 +11,8 @@ public class Player extends Character {
     private int hp;
     private String bulletID;
     private int pointingDirection;
-    
+    private PrintWriter output = null;
+
     Player(String name, String IP, Socket clientSocket, int Id, int x, int y, String bulletID) {
         super(bulletID); //Load Known-character info from Character class which from characterConst
         this.name = name;
@@ -22,6 +23,14 @@ public class Player extends Character {
         this.y = y;
         this.bulletID = bulletID;
         this.hp = super.getMaxHp();
+    }
+
+    public PrintWriter getOutputWriter() {
+        return this.output;
+    }
+
+    public void setOutput(PrintWriter output) {
+        this.output = output;
     }
 
     public String getIP() {

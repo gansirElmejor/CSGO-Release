@@ -1,6 +1,6 @@
 public class NetworkConst {
     private final int PORT = 9067;
-    private final int TICK = 10;
+    private final int TICK = 20;
     private final String FST_SPLIT_REGEX = "&";
     private final String SEC_SPLIT_REGEX = " ";
     private final String LOGIN_REQ = "201";
@@ -15,7 +15,8 @@ public class NetworkConst {
     private final String STUN_REQ = "208";
     private final String NUTRALIZE_REQ = "209";
     private final String KICK_REQ = "210";
-    private final Player BLANK_PLR = new Player("","", null, 0, 0, 0, "Standard");
+    private final String CHANGE_MAP_REQ = "211";
+    private final Player BLANK_PLR = new Player("","", null, -1, 0, 0, "Standard");
     private final int MAX_BULLET_PER_BROADCAST = 10000;
     NetworkConst(){}
     public int getPort() {return this.PORT;}
@@ -36,4 +37,5 @@ public class NetworkConst {
     public String getReqBurn() {return this.BURN_REQ;}
     public String getReqInvulnerable() {return this.INVULNERBLE_REQ;}
     public String getReqInvisible() {return this.INVISIBLE_REQ;}
+    public String getReqChangeMap() {return this.CHANGE_MAP_REQ;}
 }

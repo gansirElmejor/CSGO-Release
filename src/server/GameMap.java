@@ -68,7 +68,12 @@ public class GameMap {
                 }
             }
         }
-        
+        for(int x=0;x<27;x++){
+        for(int y=0;y<27;y++){
+          System.out.print(map[x][y]);
+        }
+        System.out.println();
+      }
         
         //rope off all small 'cages' except for the largest area
         int[][] mapclone=new int[27][27];
@@ -81,16 +86,39 @@ public class GameMap {
           for(int y=1;y<26;y++){
             if (mapclone[x][y]!=2){
               thisarea=findLargestArea(mapclone,x,y,0);
+              System.out.println("area discovered!");
               if (thisarea>previousarea[2]){
-                if(previousarea[2]>0){
+                if(previousarea[2]!=0&&previousarea[1]!=0&&previousarea[0]!=0){
+                  System.out.print("filling area at ");
+                  System.out.print(previousarea[0]);
+                  System.out.print(" ");
+                  System.out.print(previousarea[1]);
+                  System.out.print(" with area ");
+                  System.out.println(previousarea[2]);
                   fillArea(map,previousarea[0],previousarea[1]);
                 }
+                
                 previousarea[0]=x;
                 previousarea[1]=y;
                 previousarea[2]=thisarea;
               }
               else{
-                fillArea(map,x,y);
+                  if(previousarea[2]==0||previousarea[1]==0||previousarea[0]==0){
+                      previousarea[0]=x;
+                      previousarea[1]=y;
+                      previousarea[2]=thisarea;
+                      
+                  }
+                  else{
+                    System.out.print("filling area at ");
+                  System.out.print(x);
+                  System.out.print(" ");
+                  System.out.println(y);
+                  
+                  System.out.print(" with area ");
+                  System.out.println(thisarea);
+                      fillArea(map,x,y);
+                  }
               }
             }
           }
@@ -126,13 +154,14 @@ public class GameMap {
       if(map[x][y]==2 || map[x][y]==4){
         return 0;
       }
-      sum+=1;
+      int presum=sum+1;
       map[x][y]=2;
-      sum+=findLargestArea(map,x+1,y,sum);
-      sum+=findLargestArea(map,x-1,y,sum);
-      sum+=findLargestArea(map,x,y+1,sum);
-      sum+=findLargestArea(map,x,y-1,sum);
-      return sum;
+      presum+=findLargestArea(map,x+1,y,sum);
+      presum+=findLargestArea(map,x-1,y,sum);
+      presum+=findLargestArea(map,x,y+1,sum);
+      presum+=findLargestArea(map,x,y-1,sum);
+      //System.out.println(presum);
+      return presum;
     }
     public static void fillArea(int[][] map,int x,int y){
       if(map[x][y]==2 || map[x][y]==4){
@@ -145,4 +174,13 @@ public class GameMap {
       fillArea(map,x,y-1);
     }
     //Add some wall position for each map; Or write algorithms to random create maps, etc.
+    public static void main(String[] args){
+      GameMap map = new GameMap(0,5,5,5);
+      for(int x=0;x<27;x++){
+        for(int y=0;y<27;y++){
+          System.out.print(map.map[x][y]);
+        }
+        System.out.println();
+      }
+    }
 }
